@@ -37,17 +37,13 @@ module tpuv1
 	
 	logic signed [BITS_C-1:0] out_reg [DIM-1:0];
 	
-	genvar i;
+	genvar rowcolA, rowcolB, rowcolC, ballsOut, rowcolC2;
 	
 	// control signals
 	logic startCount_SA;
 	logic countSA_done;
 	logic en_SA, en_memA, en_memB;
-	
-	assign dataOut[15:0] = addr[3] ? out_reg[4] : out_reg[0];
-	assign dataOut[31:16] = addr[3] ? out_reg[5] : out_reg[1];
-	assign dataOut[47:32] = addr[3] ? out_reg[6] : out_reg[2];
-	assign dataOut[63:48] = addr[3] ? out_reg[7] : out_reg[3];
+	logic loadB;
 	
 	////////////////////////////////
 	///// DUTS
@@ -97,41 +93,75 @@ module tpuv1
 		if (!rst_n) begin
 			countSA_cycles <= (DIM*3);
 			countSA_done <= 0;
-      en_memA = 0;
+			en_memA = 0;
 			//en_memB = 0;
 			en_SA = 0;
-
 		end
 		else if (startCount_SA && countSA_done) begin
 			countSA_cycles <= countSA_cycles - 1;
 			countSA_done <= 0;
-      en_memA = 1;
+			en_memA = 1;
 			//en_memB = 1;
 			en_SA = 1;
-
 		end
 		else if (countSA_cycles === 16'h0) begin
-      countSA_cycles <= 16'h0;
+			countSA_cycles <= 16'h0;
 			countSA_done <= 1;
-      en_memA = 0;
+			en_memA = 0;
 			//en_memB = 0;
 			en_SA = 0;
-      
 		end
     else begin
-			countSA_cycles <= countSA_cycles - 1;
-			countSA_done <= 0;
-      en_memA = 1;
-			//en_memB = 1;
-			en_SA = 1;
-
+		countSA_cycles <= countSA_cycles - 1;
+		countSA_done <= 0;
+		en_memA = 1;
+		//en_memB = 1;
+		en_SA = 1;
 		end
 	end
+	
+	/////////////////
+	// generates
+	////////////////
+	
+	// assign for A
+	generate
+		for(rowcolA=0;rowcolA<DIM;++rowcolA) begin
+			assign A[rowcolA] = WrEn_A ? dataIn[(((rowcolA+1)*BITS_AB)-1):(rowcolA*BITS_AB)] : '0;
+		end
+	endgenerate
+	
+	// assign for B
+	generate
+		for(rowcolB=0;rowcolB<DIM;++rowcolB) begin
+			assign B[rowcolB] = loadB ? dataIn[((rowcolB+1)*BITS_AB)-1:(rowcolB*BITS_AB)] : '0;
+		end
+	endgenerate
+	
+	// Assign for Cin ( first half )
+	generate
+		for(rowcolC=0;rowcolC<DIM/2;++rowcolC) begin
+			assign Cin[rowcolC] = addr[3] ? Cout[rowcolC] : dataIn[((rowcolC+1)*BITS_C)-1:(rowcolC)*(BITS_C)];
+		end
+	endgenerate
+	
+	// assign for Cin (second half)
+	generate
+		for(rowcolC2 = DIM/2; rowcolC2< DIM; ++rowcolC2) begin
+			assign Cin[rowcolC2] = addr[3] ? dataIn[((rowcolC2+1-(DIM/2))*BITS_C)-1:(rowcolC2-DIM/2)*(BITS_C)] : Cout[rowcolC2];
+		end
+	endgenerate
+	
+	// assign dataOut
+	generate
+		for(ballsOut=0; ballsOut < DIM/2; ballsOut++) begin
+			assign dataOut[((BITS_C)*ballsOut) + (BITS_C - 1):(BITS_C*ballsOut)] = addr[3] ? out_reg[ballsOut + DIM/2] : out_reg[ballsOut];
+		end
+	endgenerate
 	
 	///////////////////////
 	// case statement
 	///////////////////////
-	
 	always_comb begin
 		// set the input values to be 0
 		for(int rowcol=0;rowcol<DIM;++rowcol) begin
@@ -146,44 +176,17 @@ module tpuv1
 		WrEn_A = 0;
 		WrEn_SA = 0;
 		startCount_SA = 0;
+		loadB = 0;
 		case (addr[11:8])
 			// write to A
 			4'h1: begin
 				WrEn_A = 1;
 				Arow = addr[ROWBITS+2:ROWBITS];
-				
-				// assign dataIn to A
-				// for(int rowcol=0;rowcol<DIM;++rowcol) begin
-				  // A[rowcol] = dataIn[((rowcol+1)*BITS_AB)-1:(rowcol*BITS_AB)];
-				// end
-				A[0] = dataIn[7:0];
-				A[1] = dataIn[15:8];
-				A[2] = dataIn[23:16];
-				A[3] = dataIn[31:24];
-				A[4] = dataIn[39:32];
-				A[5] = dataIn[47:40];
-				A[6] = dataIn[55:48];
-				A[7] = dataIn[63:56];
-				
-				
 			end
 			// write to B
 			4'h2: begin
 				en_memB = 1;
-				
-				// assign dataIn to B
-				// for(int rowcol=0;rowcol<DIM;++rowcol) begin
-				  // B[rowcol] = dataIn[((rowcol+1)*BITS_AB)-1:(rowcol*BITS_AB)];
-				// end
-				B[0] = dataIn[7:0];
-				B[1] = dataIn[15:8];
-				B[2] = dataIn[23:16];
-				B[3] = dataIn[31:24];
-				B[4] = dataIn[39:32];
-				B[5] = dataIn[47:40];
-				B[6] = dataIn[55:48];
-				B[7] = dataIn[63:56];
-			
+				loadB = 1;
       end
 			// read / write to C
 			4'h3: begin
@@ -194,30 +197,6 @@ module tpuv1
 				end
 				else begin
 					WrEn_SA = 1;
-					
-					// assign dataIn to A
-					// for(int rowcol=0;rowcol<DIM;++rowcol) begin
-					  // Cin[DIM-rowcol] = dataIn[((rowcol+1)*BITS_AB)-1:(rowcol*BITS_AB)];
-					// end
-					if(addr[3]) begin
-						Cin[0] = Cout[0];
-						Cin[1] = Cout[1];
-						Cin[2] = Cout[2];
-						Cin[3] = Cout[3];
-						Cin[4] = dataIn[15:0];
-						Cin[5] = dataIn[31:16];
-						Cin[6] = dataIn[47:32];
-						Cin[7] = dataIn[63:48];
-					end else begin
-						Cin[0] = dataIn[15:0];
-						Cin[1] = dataIn[31:16];
-						Cin[2] = dataIn[47:32];
-						Cin[3] = dataIn[63:48];
-						Cin[4] = Cout[4];
-						Cin[5] = Cout[5];
-						Cin[6] = Cout[6];
-						Cin[7] = Cout[7];
-					end
 				end
 			end
 			4'h4: begin
