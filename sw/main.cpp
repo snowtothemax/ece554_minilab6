@@ -53,13 +53,14 @@ using namespace std;
 typedef int8_t AB_TYPE;
 typedef int16_t C_TYPE;
 #define DIM 8
+#define DIM_FULL 64
 #define MAX_VAL _UI16_MAX
 #define DEBUG true
 
-AB_TYPE A_vals[DIM][DIM];
-AB_TYPE B_vals[DIM][DIM];
-C_TYPE output[DIM][DIM];
-C_TYPE output_reference[DIM][DIM];
+AB_TYPE A_vals[DIM_FULL][DIM_FULL];
+AB_TYPE B_vals[DIM_FULL][DIM_FULL];
+C_TYPE output[DIM_FULL][DIM_FULL];
+C_TYPE output_reference[DIM_FULL][DIM_FULL];
 
 // Reflect Endian
 template<int width, class BT> BT ref_end(BT in)
@@ -166,6 +167,15 @@ void unpack_from_C(uint16_t row, C_TYPE * vals, AFU& afu)
 		// Mask and store
 		vals[ind] = ((wds[bitind] & (base_mask << shift_count)) >> shift_count);
 	}
+}
+
+//TODO: Added this in, can delete if we don't need it
+void check_output(ptrdiff_t row, ptrdiff_t col){
+	int16_t actual = output[row][col];
+	int16_t expected = output_reference[row][col];
+	fprintf(stdout, "row: %ld col: %ld || actual: %hx expeected: %hx\n", row, col, actual, expected);
+	fflush(stdout);
+	assert(actual == expected);
 }
 
 int main(int argc, char *argv[]) {
