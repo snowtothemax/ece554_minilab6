@@ -108,7 +108,8 @@ void send_row_C(uint16_t row, C_TYPE* vals, AFU& afu)
 
 	uint64_t wds[2] = { 0 };
 
-	uint64_t lw_addr = C_START_ADDR * 0x10;
+	uint64_t base_addr = 0x300;
+	uint64_t lw_addr = base_addr + row * 0x10;
 	uint64_t hw_addr = lw_addr + 0x8;
 
 	// Partition the words into their respective rows
@@ -133,7 +134,8 @@ void unpack_from_C(uint16_t row, C_TYPE* vals, AFU& afu)
 {
 	uint64_t wds[2] = { 0 };
 
-	uint64_t lw_addr = C_START_ADDR * 0x10;
+	uint64_t base_addr = 0x300;
+	uint64_t lw_addr = base_addr + row * 0x10;
 	uint64_t hw_addr = lw_addr + 0x8;
 
 	// Read the two words;
@@ -268,7 +270,7 @@ int main(int argc, char* argv[]) {
 		{
 			for (ptrdiff_t c = 0; c < DIM_FULL; ++c)
 			{
-				check_output(r, c)
+				check_output(r, c);
 			}
 		}
 
