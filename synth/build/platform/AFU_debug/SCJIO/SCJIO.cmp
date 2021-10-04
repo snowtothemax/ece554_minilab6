@@ -1,0 +1,13 @@
+	component SCJIO is
+		generic (
+			ENABLE_JTAG_IO_SELECTION : integer := 0;
+			NEGEDGE_TDO_LATCH        : integer := 1
+		);
+		port (
+			tms : in  std_logic := 'X'; -- tms
+			tdi : in  std_logic := 'X'; -- tdi
+			tdo : out std_logic;        -- tdo
+			tck : in  std_logic := 'X'  -- clk
+		);
+	end component SCJIO;
+
