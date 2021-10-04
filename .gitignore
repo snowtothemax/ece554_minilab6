@@ -3,3 +3,4 @@ hw/work
 *.mpf
 *.wlf
 synth/
+sw/.vs/
