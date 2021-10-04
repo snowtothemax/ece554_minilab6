@@ -165,8 +165,8 @@ module tpuv1
 	always_comb begin
 		// set the input values to be 0
 		for(int rowcol=0;rowcol<DIM;++rowcol) begin
-		  A[rowcol] = {BITS_AB{1'b0}};
-		  B[rowcol] = {BITS_AB{1'b0}};
+		  // A[rowcol] = {BITS_AB{1'b0}};
+		  // B[rowcol] = {BITS_AB{1'b0}};
 		  out_reg[rowcol] = {BITS_C{1'b0}};
 		end
 		
