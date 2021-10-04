@@ -94,28 +94,24 @@ module tpuv1
 			countSA_cycles <= (DIM*3);
 			countSA_done <= 0;
 			en_memA = 0;
-			//en_memB = 0;
 			en_SA = 0;
 		end
 		else if (startCount_SA && countSA_done) begin
 			countSA_cycles <= countSA_cycles - 1;
 			countSA_done <= 0;
 			en_memA = 1;
-			//en_memB = 1;
 			en_SA = 1;
 		end
 		else if (countSA_cycles === 16'h0) begin
 			countSA_cycles <= 16'h0;
 			countSA_done <= 1;
 			en_memA = 0;
-			//en_memB = 0;
 			en_SA = 0;
 		end
     else begin
 		countSA_cycles <= countSA_cycles - 1;
 		countSA_done <= 0;
 		en_memA = 1;
-		//en_memB = 1;
 		en_SA = 1;
 		end
 	end
@@ -165,18 +161,17 @@ module tpuv1
 	always_comb begin
 		// set the input values to be 0
 		for(int rowcol=0;rowcol<DIM;++rowcol) begin
-		  // A[rowcol] = {BITS_AB{1'b0}};
-		  // B[rowcol] = {BITS_AB{1'b0}};
 		  out_reg[rowcol] = {BITS_C{1'b0}};
 		end
 		
 		en_memB = 0;
-		//en_memA = 0;
-		//en_SA = 0;
 		WrEn_A = 0;
 		WrEn_SA = 0;
 		startCount_SA = 0;
 		loadB = 0;
+		Arow = 0;
+		Crow = 0;
+
 		case (addr[11:8])
 			// write to A
 			4'h1: begin
