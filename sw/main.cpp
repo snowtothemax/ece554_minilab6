@@ -215,6 +215,26 @@ int main(int argc, char* argv[]) {
 			}
 		}
 
+		// First, we should test if CWrite works.
+		fprintf(stdout, "Testing write of C registers...\n");
+		for (int y_ind = 0; y_ind < DIM; ++y_ind)
+		{
+			send_row_C(y_ind, output_reference[y_ind], afu);
+		}
+		for (int y_ind_p = 0; y_ind_p < DIM; ++y_ind_p)
+		{
+			unpack_from_C(y_ind_p, output[y_ind_p], afu);
+		}
+
+		for (int x_ind = 0; x_ind < DIM; ++x_ind)
+		{
+			for (int y_ind = 0; y_ind < DIM; ++y_ind)
+			{
+				output_check(x_ind, y_ind);
+				output[x_ind][y_ind] = 0; // reinitialize, while we are here
+			}
+		}
+
 		// Now try it with the AFU.
 		// want to go through all possible values and do the blocked multiply
 		for (int i = 0; i < DIM_FULL; i += 8)
