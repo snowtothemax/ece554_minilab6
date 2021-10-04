@@ -230,7 +230,7 @@ int main(int argc, char* argv[]) {
 		{
 			for (int y_ind = 0; y_ind < DIM; ++y_ind)
 			{
-				output_check(x_ind, y_ind);
+				check_output(x_ind, y_ind);
 				output[x_ind][y_ind] = 0; // reinitialize, while we are here
 			}
 		}
