@@ -62,7 +62,11 @@ module transpose_fifo
 					fifo_data[i] <= 0;
 				end
 			end
-
+			// parallel load
+			else if (WrEn) begin
+				// input the row on the clock
+				fifo_data <= rowIn;
+			end
 			// shift
 			else if (en) begin	
 				for (int i = 0; i < DEPTH; i++) begin
@@ -73,12 +77,6 @@ module transpose_fifo
 						fifo_data[i] <= fifo_data[i-1];
 					end
 				end
-			end
-			
-			// parallel load
-			else if (WrEn && ~en) begin
-				// input the row on the clock
-				fifo_data <= rowIn;
 			end
 		end
 	endgenerate
