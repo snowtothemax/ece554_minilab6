@@ -34,7 +34,7 @@ module tpuv1
 	logic startCount;
 	logic loadB;
 	logic en;
-	logic signed [COUNTER_BITS-1:0] counter;
+	logic unsigned [COUNTER_BITS-1:0] counter;
 	
 	////////////////////////////////
 	///// DUTS
