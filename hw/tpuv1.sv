@@ -85,7 +85,7 @@ module tpuv1
 	/////////////////////////
 	// counter 
 	/////////////////////////
-	always_ff @(posedge clk) begin
+	always_ff @(posedge clk, negedge rst_n) begin
 		if (!rst_n)
 			counter <= 0;
 		else if (startCount | en)
