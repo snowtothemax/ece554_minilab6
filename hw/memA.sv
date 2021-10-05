@@ -10,7 +10,7 @@ module memA
 	output signed [BITS_AB-1:0] Aout [DIM-1:0]
 	);
 	// genvar
-	genvar i;
+	genvar i,j;
 	
 	logic signed [BITS_AB-1:0] interconnects [DIM-1:0];
 	
@@ -37,13 +37,13 @@ module memA
 		
 		for(j = 1; j < DIM; j++) begin
 			fifo 
-				#(.DEPTH(i), .BITS(BITS_AB))
+				#(.DEPTH(j), .BITS(BITS_AB))
 				iFifo (
 				.clk(clk),
 				.rst_n(rst_n),
 				.en(en),
-				.d(interconnects[i]),
-				.q(Aout[i])
+				.d(interconnects[j]),
+				.q(Aout[j])
 				);
 		end
 	endgenerate
