@@ -14,7 +14,7 @@ module tpuv1
    );
    
 	localparam ROWBITS = $clog2(DIM);
-	localparam COUNTER_BITS = $clog2(DIM*3);
+	localparam COUNTER_BITS = $clog2(DIM*4);
 	
 	///////////////////////////////
 	/// intermediate signals

@@ -14,6 +14,8 @@ module memA
 	
 	logic signed [BITS_AB-1:0] interconnects [DIM-1:0];
 	
+	assign Aout[0] = interconnects[0];
+	
 	//////
 	//// instantiate array
 	//////
@@ -31,12 +33,10 @@ module memA
 				.q(interconnects[i]),
 				.rowIn(Ain)
 				);
-			// possibly might want two for loops
-			if( i === 0 ) begin
-				assign Aout[i] = interconnects[i];
-			end
-			else begin
-				fifo 
+		end
+		
+		for(j = 1; j < DIM; j++) begin
+			fifo 
 				#(.DEPTH(i), .BITS(BITS_AB))
 				iFifo (
 				.clk(clk),
@@ -45,7 +45,6 @@ module memA
 				.d(interconnects[i]),
 				.q(Aout[i])
 				);
-			end
 		end
 	endgenerate
 endmodule
