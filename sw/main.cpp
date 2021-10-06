@@ -186,6 +186,7 @@ int main(int argc, char* argv[]) {
 
 		// Seed random generator with "now"
 		timeval tv;
+		std::chrono::duration<double, std::milli> computeTime;
 		gettimeofday(&tv, nullptr);
 		srand(tv.tv_usec);
 
@@ -278,10 +279,12 @@ int main(int argc, char* argv[]) {
 					fprintf(stdout, "Performing Calculation...\n");
 
 					// "the work"
+					auto start = std::chrono::high_resolution_clock::now();
 					afu.write(0x0400, 0);
-					
+					auto end = std::chrono::high_resolution_clock::now();
 					// Do we have to sleep?
 					//	usleep(1000*1000);
+					computeTime += end - start;
 
 					// Read Values.
 					fprintf(stdout, "Reading Output from C...\n");
@@ -290,6 +293,7 @@ int main(int argc, char* argv[]) {
 					{
 						unpack_from_C(c_r, output[c_r + i] + j, afu);
 					}
+
 				}
 			}
 		}
@@ -309,6 +313,7 @@ int main(int argc, char* argv[]) {
 
 		fprintf(stdout, "All tests passed. No errors detected.\n");
 		cout << "Elapsed " << totalTime.count() << endl;
+		cout << "GOPS " << 2*(DIM_FULL*DIM_FULL*DIM_FULL) / totalTime.count() / 1000000 << endl;
 		cout << "GOPS " << 2*(DIM_FULL*DIM_FULL*DIM_FULL) / totalTime.count() / 1000000 << endl;
 
 		return 0;
