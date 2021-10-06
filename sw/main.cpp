@@ -189,8 +189,6 @@ int main(int argc, char* argv[]) {
 		gettimeofday(&tv, nullptr);
 		srand(tv.tv_usec);
 
-		std::chrono::milliseconds totalCompute;
-
 		fprintf(stdout, "FULL SYSTEM TEST\n---------------\n");
 		fprintf(stdout, "Populating A and B...\n");
 		
@@ -279,12 +277,8 @@ int main(int argc, char* argv[]) {
 					// Calculate
 					fprintf(stdout, "Performing Calculation...\n");
 
-					auto startCompute = std::chrono::high_resolution_clock::now();
 					// "the work"
 					afu.write(0x0400, 0);
-
-					auto endCompute = std::chrono::high_resolution_clock::now();
-					totalCompute += std::chrono::duration_cast<std::chrono::milliseconds>(endCompute - startCompute);
 					
 					// Do we have to sleep?
 					//	usleep(1000*1000);
@@ -301,10 +295,7 @@ int main(int argc, char* argv[]) {
 		}
 
 		auto endAll = std::chrono::high_resolution_clock::now();
-		auto totalTime = std::chrono::duration_cast<std::chrono::milliseconds>(endAll - startAll);
-
-		auto totalOpsRate = 2.0 * (DIM_FULL ^ 3) / ((long double) (totalTime.count()/1000000.0));
-		auto computeOpsRate = 2.0 * (DIM_FULL ^ 3) / ((long double) (totalCompute.count() / 1000000.0));
+		std::chrono::duration<double, std::milli> totalTime = (endAll - startAll);
 
 		// Compare.
 		fprintf(stdout, "Calculation finished. Testing values...\n");
@@ -317,8 +308,8 @@ int main(int argc, char* argv[]) {
 		}
 
 		fprintf(stdout, "All tests passed. No errors detected.\n");
-		cout << "Total Ops Rate: " << totalTime.count() << endl;
-		cout << "Compute Ops Rate: " << totalCompute.count() << endl;
+		cout << "Elapsed " << totalTime.count() << endl;
+		cout << "GOPS " << 2*(DIM_FULL*DIM_FULL*DIM_FULL) / totalTime.count() / 1000000 << endl;
 
 		return 0;
 	}
