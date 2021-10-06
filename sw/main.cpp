@@ -322,8 +322,8 @@ int main(int argc, char* argv[]) {
 		}
 
 		fprintf(stdout, "All tests passed. No errors detected.\n");
-		fprintf(stdout, "Ops Rate %f\n", opsRate);
-		fprintf(stdout, "Compute Ops Rate %f\n", computeOpsRate);
+		fprintf(stdout, "Ops Rate %lf\n", opsRate);
+		fprintf(stdout, "Compute Ops Rate %lf\n", computeOpsRate);
 
 		return 0;
 	}
