@@ -192,10 +192,11 @@ int main(int argc, char* argv[]) {
 		
 		auto startCompute = std::chrono::system_clock::now(); 
 		auto endCompute = std::chrono::system_clock::now();
-		auto totalCompute = endCompute;
-		auto end = endCompute;
-		auto start = endCompute;
+		std::chrono::duration<double> totalCompute = startCompute - endCompute;
 
+		auto startAll = std::chrono::system_clock::now();
+		auto endAll = std::chrono::system_clock::now();
+		std::chrono::duration<double> totalTime = startAll - endAll;
 
 		fprintf(stdout, "FULL SYSTEM TEST\n---------------\n");
 		fprintf(stdout, "Populating A and B...\n");
@@ -248,8 +249,7 @@ int main(int argc, char* argv[]) {
 			}
 		}
 	
-		start = std::chrono::system_clock::now();
-		totalCompute = start;
+		startAll = std::chrono::system_clock::now();
 
 		// Now try it with the AFU.
 		// want to go through all possible values and do the blocked multiply
@@ -305,10 +305,11 @@ int main(int argc, char* argv[]) {
 			}
 		}
 
-		end = std::chrono::system_clock::now();
-		int totalTime = (int)end - (int)start;
-		double ops_rate = 2.0 * (double)DIM_FULL ^ 3 / (double)totalTime;
-		double computeOpsRate = 2.0 * (double)DIM_FULL ^ 3 / (double)totalCompute;
+		endAll = std::chrono::system_clock::now();
+		totalTime = endAll - startAll;
+
+		double ops_rate = 2.0 * (DIM_FULL ^ 3) / totalTime.count();
+		double computeOpsRate = 2.0 * (DIM_FULL ^ 3) / totalCompute.count();
 
 		// Compare.
 		fprintf(stdout, "Calculation finished. Testing values...\n");
@@ -321,8 +322,8 @@ int main(int argc, char* argv[]) {
 		}
 
 		fprintf(stdout, "All tests passed. No errors detected.\n");
-		fprintf(stdout, "Ops Rate %d", ops_rate);
-		fprintf(stdout, "Compute Ops Rate %d", computeOpsRate);
+		fprintf(stdout, "Ops Rate %d\n", ops_rate);
+		fprintf(stdout, "Compute Ops Rate %d\n", computeOpsRate);
 
 		return 0;
 	}
