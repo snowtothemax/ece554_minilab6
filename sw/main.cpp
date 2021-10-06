@@ -55,7 +55,7 @@ using namespace std;
 typedef int8_t AB_TYPE;
 typedef int16_t C_TYPE;
 #define DIM 8
-#define DIM_FULL 128
+#define DIM_FULL 8
 #define MAX_VAL _UI16_MAX
 #define DEBUG true
 
