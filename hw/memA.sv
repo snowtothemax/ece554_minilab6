@@ -28,7 +28,7 @@ module memA
 				.clk(clk),
 				.rst_n(rst_n),
 				.en(en),
-				.WrEn(Arow == i & WrEn),
+				.WrEn((Arow == i) & WrEn),
 				.d(Ain[i]),
 				.q(interconnects[i]),
 				.rowIn(Ain)
