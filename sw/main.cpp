@@ -55,7 +55,7 @@ using namespace std;
 typedef int8_t AB_TYPE;
 typedef int16_t C_TYPE;
 #define DIM 8
-#define DIM_FULL 16
+#define DIM_FULL 8
 #define MAX_VAL _UI16_MAX
 #define DEBUG true
 
@@ -282,6 +282,8 @@ int main(int argc, char* argv[]) {
 					auto startCompute = std::chrono::high_resolution_clock::now();
 					// "the work"
 					afu.write(0x0400, 0);
+					auto endCompute = std::chrono::high_resolution_clock::now();
+					totalCompute += std::chrono::duration_cast<std::chrono::microseconds>(endCompute - startCompute);
 					
 					// Do we have to sleep?
 					//	usleep(1000*1000);
@@ -292,9 +294,7 @@ int main(int argc, char* argv[]) {
 					for (ptrdiff_t c_r = 0; c_r < DIM; ++c_r)
 					{
 						unpack_from_C(c_r, output[c_r + i] + j, afu);
-					}	
-					auto endCompute = std::chrono::high_resolution_clock::now();
-					totalCompute += std::chrono::duration_cast<std::chrono::microseconds>(endCompute - startCompute);
+					}
 				}
 			}
 		}
