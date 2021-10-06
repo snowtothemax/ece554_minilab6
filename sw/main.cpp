@@ -284,7 +284,7 @@ int main(int argc, char* argv[]) {
 					afu.write(0x0400, 0);
 
 					auto endCompute = std::chrono::high_resolution_clock::now();
-					totalCompute += std::chrono::duration_cast<std::chrono::microseconds>(endCompute - startCompute);
+					totalCompute += std::chrono::duration_cast<double, std::milli>(endCompute - startCompute);
 					
 					// Do we have to sleep?
 					//	usleep(1000*1000);
@@ -301,7 +301,7 @@ int main(int argc, char* argv[]) {
 		}
 
 		auto endAll = std::chrono::high_resolution_clock::now();
-		auto totalTime = std::chrono::duration_cast<std::chrono::microseconds>(endAll - startAll);
+		auto totalTime = std::chrono::duration_cast<double, std::milli>(endAll - startAll);
 
 		auto totalOpsRate = 2.0 * (DIM_FULL ^ 3) / ((long double) (totalTime.count()/1000000.0));
 		auto computeOpsRate = 2.0 * (DIM_FULL ^ 3) / ((long double) (totalCompute.count() / 1000000.0));
