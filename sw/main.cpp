@@ -177,6 +177,7 @@ void check_output(ptrdiff_t row, ptrdiff_t col) {
 }
 
 int main(int argc, char* argv[]) {
+	
 
 	try {
 		// Create an AFU object to provide basic services for the FPGA. The 
@@ -188,6 +189,13 @@ int main(int argc, char* argv[]) {
 		timeval tv;
 		gettimeofday(&tv, nullptr);
 		srand(tv.tv_usec);
+		
+		auto startCompute = std::chrono::system_clock::now(); 
+		auto endCompute = std::chrono::system_clock::now();
+		auto totalCompute = endCompute;
+		auto end = endCompute;
+		auto start = endCompute;
+
 
 		fprintf(stdout, "FULL SYSTEM TEST\n---------------\n");
 		fprintf(stdout, "Populating A and B...\n");
@@ -239,12 +247,10 @@ int main(int argc, char* argv[]) {
 				output[x_ind][y_ind] = 0; // reinitialize, while we are here
 			}
 		}
+	
+		start = std::chrono::system_clock::now();
+		totalCompute = start;
 
-		auto start = std::chrono::system_clock::now();
-		auto startCompute;
-		auto endCompute;
-		auto totalCompute = 0;
-		auto end;
 		// Now try it with the AFU.
 		// want to go through all possible values and do the blocked multiply
 		for (int i = 0; i < DIM_FULL; i += 8)
@@ -300,9 +306,9 @@ int main(int argc, char* argv[]) {
 		}
 
 		end = std::chrono::system_clock::now();
-		int totalTime = end - start;
-		double ops_rate = 2 * DIM_FULL ^ 3 / totalTime;
-		double computeOpsRate = 2 * DIM_FULL ^ 3 / totalCompute;
+		int totalTime = (int)end - (int)start;
+		double ops_rate = 2.0 * (double)DIM_FULL ^ 3 / (double)totalTime;
+		double computeOpsRate = 2.0 * (double)DIM_FULL ^ 3 / (double)totalCompute;
 
 		// Compare.
 		fprintf(stdout, "Calculation finished. Testing values...\n");
