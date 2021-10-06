@@ -283,7 +283,7 @@ int main(int argc, char* argv[]) {
 					// "the work"
 					afu.write(0x0400, 0);
 					auto endCompute = std::chrono::high_resolution_clock::now();
-					totalCompute += std::chrono::duration_cast<std::chrono::microseconds>(endCompute - startCompute);
+					totalCompute = std::chrono::duration_cast<std::chrono::microseconds>(endCompute - startCompute) + totalCompute;
 					
 					// Do we have to sleep?
 					//	usleep(1000*1000);
@@ -302,8 +302,8 @@ int main(int argc, char* argv[]) {
 		auto endAll = std::chrono::high_resolution_clock::now();
 		auto totalTime = std::chrono::duration_cast<std::chrono::microseconds>(endAll - startAll);
 
-		auto totalOpsRate = 2.0 * (DIM_FULL ^ 3) / totalTime.count();
-		auto computeOpsRate = 2.0 * (DIM_FULL ^ 3) / totalCompute.count();
+		auto totalOpsRate = 2 * (DIM_FULL ^ 3) / totalTime.count();
+		auto computeOpsRate = 2 * (DIM_FULL ^ 3) / totalCompute.count();
 
 		// Compare.
 		fprintf(stdout, "Calculation finished. Testing values...\n");
