@@ -283,8 +283,7 @@ int main(int argc, char* argv[]) {
 					// "the work"
 					afu.write(0x0400, 0);
 					auto endCompute = std::chrono::high_resolution_clock::now();
-					auto interMediateCompute = std::chrono::duration_cast<std::chrono::microseconds>(endCompute - startCompute);
-					totalCompute = totalCompute + interMediateCompute;
+					totalCompute += std::chrono::duration_cast<std::chrono::microseconds>(endCompute - startCompute);
 					
 					// Do we have to sleep?
 					//	usleep(1000*1000);
