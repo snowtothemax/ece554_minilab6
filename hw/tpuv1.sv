@@ -24,7 +24,8 @@ module tpuv1
 	logic signed [BITS_AB-1:0] memB_out [DIM-1:0];
 	logic signed [BITS_C-1:0] macC_in [DIM-1:0];
 	logic signed [BITS_C-1:0] macC_out [DIM-1:0];
-	logic [DATAW-1:0] cWord;
+	logic signed [BITS_C-1:0] outReg [DIM-1:0];
+	//logic [DATAW-1:0] cWord;
 	logic [ROWBITS-1:0] aRow, cRow;
 
 	/* -------------------- Control Signals -------------- */
@@ -70,7 +71,7 @@ module tpuv1
 	
 	/* -------------------- Assignments ------------------- */
 	assign en = |counter;
-	assign dataOut = cWord;
+	//assign dataOut = cWord;
 	assign aRow = addr[5:3];
 	assign cRow = addr[6:4];
 
@@ -113,11 +114,11 @@ module tpuv1
 	endgenerate
 	
 	// assign dataOut
-	//generate
-	//	for(ballsOut=0; ballsOut < DIM/2; ballsOut++) begin
-	//		assign dataOut[((BITS_C)*ballsOut) + (BITS_C - 1):(BITS_C*ballsOut)] = addr[3] ? out_reg[ballsOut + DIM/2] : out_reg[ballsOut];
-	//	end
-	//endgenerate
+	generate
+		for(i = 0; i < DIM/2; i++) begin
+			assign dataOut[((BITS_C) * i) + (BITS_C - 1):(BITS_C * i)] = addr[3] ? outReg[i + DIM/2] : outReg[i];
+		end
+	endgenerate
 	
 	/* -------------------- Combinational --------------------- */
 	always_comb begin
@@ -128,7 +129,10 @@ module tpuv1
 		WrEn_B = 0;
 		WrEn_SA = 0;
 		startCount = 0;
-		cWord = 0;
+		//cWord = 0;
+		for (int i = 0; i < DIM; i++) begin
+			outReg[i] = 0;
+		end
 
 		case (addr[11:8])
 			// write to A
@@ -149,6 +153,8 @@ module tpuv1
 					WrEn_SA = 1;
 				end
 				else begin
+					outReg = macC_out;
+					/*
 					if (addr[3]) begin
 						for (int i = DIM/2; i < DIM; i++) begin
 							cWord |= (macC_out[i] << ((i - (DIM/2)) * BITS_C));
@@ -159,6 +165,7 @@ module tpuv1
 							cWord |= (macC_out[i] << (i * BITS_C));
 						end
 					end
+					*/
 				end
 			end
 			// matmul
