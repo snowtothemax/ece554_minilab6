@@ -189,7 +189,7 @@ int main(int argc, char* argv[]) {
 		gettimeofday(&tv, nullptr);
 		srand(tv.tv_usec);
 
-		std::chrono::microseconds totalCompute;
+		std::chrono::seconds totalCompute;
 
 		fprintf(stdout, "FULL SYSTEM TEST\n---------------\n");
 		fprintf(stdout, "Populating A and B...\n");
@@ -294,13 +294,13 @@ int main(int argc, char* argv[]) {
 						unpack_from_C(c_r, output[c_r + i] + j, afu);
 					}	
 					auto endCompute = std::chrono::high_resolution_clock::now();
-					totalCompute += std::chrono::duration_cast<std::chrono::microseconds>(endCompute - startCompute);
+					totalCompute += std::chrono::duration_cast<std::chrono::seconds>(endCompute - startCompute);
 				}
 			}
 		}
 
 		auto endAll = std::chrono::high_resolution_clock::now();
-		auto totalTime = std::chrono::duration_cast<std::chrono::microseconds>(endAll - startAll);
+		auto totalTime = std::chrono::duration_cast<std::chrono::seconds>(endAll - startAll);
 
 		auto totalOpsRate = 2.0 * (DIM_FULL ^ 3) / totalTime.count();
 		auto computeOpsRate = 2.0 * (DIM_FULL ^ 3) / totalCompute.count();
