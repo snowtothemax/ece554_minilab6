@@ -28,6 +28,9 @@
 #include <cstdio>
 #include <climits>
 #include <unistd.h>
+#include <iostream>
+#include <chrono>
+#include <ctime>
 
 #include <opae/utils.h>
 
@@ -237,6 +240,11 @@ int main(int argc, char* argv[]) {
 			}
 		}
 
+		auto start = std::chrono::system_clock::now();
+		auto startCompute;
+		auto endCompute;
+		auto totalCompute = 0;
+		auto end;
 		// Now try it with the AFU.
 		// want to go through all possible values and do the blocked multiply
 		for (int i = 0; i < DIM_FULL; i += 8)
@@ -269,6 +277,8 @@ int main(int argc, char* argv[]) {
 						send_row_B(b_r, begin_b, afu);
 					}
 
+					startCompute = std::chrono::system_clock::now();
+
 					// Calculate
 					fprintf(stdout, "Performing Calculation...\n");
 					afu.write(0x0400, 0);
@@ -282,9 +292,17 @@ int main(int argc, char* argv[]) {
 					{
 						unpack_from_C(c_r, output[c_r + i] + j, afu);
 					}
+
+					endCompute = std::chrono::system_clock::now();
+					totalCompute += endCompute - startCompute;
 				}
 			}
 		}
+
+		end = std::chrono::system_clock::now();
+		int totalTime = end - start;
+		double ops_rate = 2 * DIM_FULL ^ 3 / totalTime;
+		double computeOpsRate = 2 * DIM_FULL ^ 3 / totalCompute;
 
 		// Compare.
 		fprintf(stdout, "Calculation finished. Testing values...\n");
@@ -297,6 +315,8 @@ int main(int argc, char* argv[]) {
 		}
 
 		fprintf(stdout, "All tests passed. No errors detected.\n");
+		fprintf(stdout, "Ops Rate %d", ops_rate);
+		fprintf(stdout, "Compute Ops Rate %d", computeOpsRate);
 
 		return 0;
 	}
