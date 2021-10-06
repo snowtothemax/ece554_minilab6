@@ -189,7 +189,7 @@ int main(int argc, char* argv[]) {
 		gettimeofday(&tv, nullptr);
 		srand(tv.tv_usec);
 
-		std::chrono::duration<microseconds> totalCompute;
+		std::chrono::duration<std::chrono::microseconds> totalCompute;
 
 		fprintf(stdout, "FULL SYSTEM TEST\n---------------\n");
 		fprintf(stdout, "Populating A and B...\n");
