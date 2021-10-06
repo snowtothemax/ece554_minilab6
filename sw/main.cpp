@@ -192,11 +192,11 @@ int main(int argc, char* argv[]) {
 		
 		auto startCompute = std::chrono::system_clock::now(); 
 		auto endCompute = std::chrono::system_clock::now();
-		std::chrono::duration<double> totalCompute = (std::chrono::duration<double>)0;
+		std::chrono::duration<double, std::milli> totalCompute = (std::chrono::duration<double, std::milli>)0;
 
 		auto startAll = std::chrono::system_clock::now();
 		auto endAll = std::chrono::system_clock::now();
-		std::chrono::duration<double> totalTime = startAll - endAll;
+		std::chrono::duration<double, std::milli> totalTime = startAll - endAll;
 
 		fprintf(stdout, "FULL SYSTEM TEST\n---------------\n");
 		fprintf(stdout, "Populating A and B...\n");
@@ -249,7 +249,7 @@ int main(int argc, char* argv[]) {
 			}
 		}
 	
-		startAll = std::chrono::system_clock::now();
+		startAll = std::chrono::high_resolution_clock::now();
 
 		// Now try it with the AFU.
 		// want to go through all possible values and do the blocked multiply
@@ -286,10 +286,11 @@ int main(int argc, char* argv[]) {
 					// Calculate
 					fprintf(stdout, "Performing Calculation...\n");
 
-					startCompute = std::chrono::system_clock::now();
+					startCompute = std::chrono::high_resolution_clock::now();
+					// "the work"
 					afu.write(0x0400, 0);
-					endCompute = std::chrono::system_clock::now();
-					totalCompute += (std::chrono::duration<long double>)endCompute - (std::chrono::duration<long double>)startCompute);
+					endCompute = std::chrono::high_resolution_clock::now();
+					totalCompute += endCompute - startCompute);
 					
 					// Do we have to sleep?
 					//	usleep(1000*1000);
@@ -306,7 +307,7 @@ int main(int argc, char* argv[]) {
 		}
 
 		endAll = std::chrono::system_clock::now();
-		totalTime = (std::chrono::duration<long double>)endAll - (std::chrono::duration<long double>)startAll;
+		totalTime = endAll - startAll;
 
 		double totalOpsRate = 2.0 * (DIM_FULL ^ 3) / totalTime.count();
 		double computeOpsRate = 2.0 * (DIM_FULL ^ 3) / totalCompute.count();
