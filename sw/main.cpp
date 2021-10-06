@@ -284,7 +284,7 @@ int main(int argc, char* argv[]) {
 					afu.write(0x0400, 0);
 					auto endCompute = std::chrono::high_resolution_clock::now();
 					auto intermediate = std::chrono::duration_cast<std::chrono::microseconds>(endCompute - startCompute);
-					totalCompute.operator+=(*intermediate);
+					totalCompute.operator+=(intermediate.count());
 					
 					// Do we have to sleep?
 					//	usleep(1000*1000);
