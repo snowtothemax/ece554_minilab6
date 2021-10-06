@@ -283,11 +283,14 @@ int main(int argc, char* argv[]) {
 						send_row_B(b_r, begin_b, afu);
 					}
 
-					startCompute = std::chrono::system_clock::now();
-
 					// Calculate
 					fprintf(stdout, "Performing Calculation...\n");
+
+					startCompute = std::chrono::system_clock::now();
 					afu.write(0x0400, 0);
+					endCompute = std::chrono::system_clock::now();
+					totalCompute += endCompute - startCompute;
+					
 					// Do we have to sleep?
 					//	usleep(1000*1000);
 
@@ -297,10 +300,7 @@ int main(int argc, char* argv[]) {
 					for (ptrdiff_t c_r = 0; c_r < DIM; ++c_r)
 					{
 						unpack_from_C(c_r, output[c_r + i] + j, afu);
-					}
-
-					endCompute = std::chrono::system_clock::now();
-					totalCompute += endCompute - startCompute;
+					}	
 				}
 			}
 		}
@@ -308,8 +308,8 @@ int main(int argc, char* argv[]) {
 		endAll = std::chrono::system_clock::now();
 		totalTime = endAll - startAll;
 
-		double opsRate = 2.0 * (DIM_FULL ^ 3) / totalTime.count();
-		double computeOpsRate = 2.0 * (DIM_FULL ^ 3) / totalCompute.count();
+		long double opsRate = 2.0 * (DIM_FULL ^ 3) / totalTime.count();
+		long double computeOpsRate = 2.0 * (DIM_FULL ^ 3) / totalCompute.count();
 
 		// Compare.
 		fprintf(stdout, "Calculation finished. Testing values...\n");
