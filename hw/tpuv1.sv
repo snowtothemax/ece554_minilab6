@@ -97,16 +97,19 @@ module tpuv1
 	////////////////
 	
 	// assign for A
+	//Nate has no conidtional here
 	generate
 		for(rowcolA=0;rowcolA<DIM;++rowcolA) begin
-			assign A[rowcolA] = WrEn_A ? dataIn[(((rowcolA+1)*BITS_AB)-1):(rowcolA*BITS_AB)] : '0;
+			assign A[rowcolA] = /*WrEn_A ?*/ dataIn[(((rowcolA+1)*BITS_AB)-1):(rowcolA*BITS_AB)]; //: '0;
 		end
 	endgenerate
 	
 	// assign for B
+	//Nate has a conditional based off of en not off of loadB
+	//If en then load zeros otherwise do the math stuff (our math is right) 
 	generate
 		for(rowcolB=0;rowcolB<DIM;++rowcolB) begin
-			assign B[rowcolB] = loadB ? dataIn[((rowcolB+1)*BITS_AB)-1:(rowcolB*BITS_AB)] : '0;
+			assign B[rowcolB] = en ? dataIn[((rowcolB+1)*BITS_AB)-1:(rowcolB*BITS_AB)] : '0;
 		end
 	endgenerate
 	
