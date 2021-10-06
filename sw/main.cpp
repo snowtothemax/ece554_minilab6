@@ -188,14 +188,8 @@ int main(int argc, char* argv[]) {
 		timeval tv;
 		gettimeofday(&tv, nullptr);
 		srand(tv.tv_usec);
-		
-		auto startCompute = std::chrono::system_clock::now(); 
-		auto endCompute = std::chrono::system_clock::now();
-		std::chrono::duration<std::chrono::microseconds> totalCompute = std::chrono::duration_cast<std::chrono::microseconds>(0);
 
-		auto startAll = std::chrono::system_clock::now();
-		auto endAll = std::chrono::system_clock::now();
-		std::chrono::duration<std::chrono::microseconds> totalTime = std::chrono::duration_cast<std::chrono::microseconds>(0);
+		std::chrono::duration<microseconds> totalCompute;
 
 		fprintf(stdout, "FULL SYSTEM TEST\n---------------\n");
 		fprintf(stdout, "Populating A and B...\n");
@@ -248,7 +242,7 @@ int main(int argc, char* argv[]) {
 			}
 		}
 	
-		startAll = std::chrono::high_resolution_clock::now();
+		auto startAll = std::chrono::high_resolution_clock::now();
 
 		// Now try it with the AFU.
 		// want to go through all possible values and do the blocked multiply
@@ -285,11 +279,11 @@ int main(int argc, char* argv[]) {
 					// Calculate
 					fprintf(stdout, "Performing Calculation...\n");
 
-					startCompute = std::chrono::high_resolution_clock::now();
+					auto startCompute = std::chrono::system_clock::now();
 					// "the work"
 					afu.write(0x0400, 0);
-					endCompute = std::chrono::high_resolution_clock::now();
-					totalCompute += endCompute - startCompute;
+					auto endCompute = std::chrono::high_resolution_clock::now();
+					totalCompute += std::chrono::duration_cast<std::chrono::microseconds>(endCompute - startCompute);
 					
 					// Do we have to sleep?
 					//	usleep(1000*1000);
@@ -305,8 +299,8 @@ int main(int argc, char* argv[]) {
 			}
 		}
 
-		endAll = std::chrono::system_clock::now();
-		totalTime = endAll - startAll;
+		auto endAll = std::chrono::system_clock::now();
+		auto totalTime = std::chrono::duration_cast<std::chrono::microseconds>(endAll - startAll);
 
 		auto totalOpsRate = 2.0 * (DIM_FULL ^ 3) / totalTime.count();
 		auto computeOpsRate = 2.0 * (DIM_FULL ^ 3) / totalCompute.count();
