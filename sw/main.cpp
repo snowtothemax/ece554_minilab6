@@ -192,7 +192,7 @@ int main(int argc, char* argv[]) {
 		
 		auto startCompute = std::chrono::system_clock::now(); 
 		auto endCompute = std::chrono::system_clock::now();
-		std::chrono::duration<double> totalCompute = startCompute - endCompute;
+		std::chrono::duration<double> totalCompute = (std::chrono::duration<double>)0;
 
 		auto startAll = std::chrono::system_clock::now();
 		auto endAll = std::chrono::system_clock::now();
@@ -308,7 +308,7 @@ int main(int argc, char* argv[]) {
 		endAll = std::chrono::system_clock::now();
 		totalTime = endAll - startAll;
 
-		double ops_rate = 2.0 * (DIM_FULL ^ 3) / totalTime.count();
+		double opsRate = 2.0 * (DIM_FULL ^ 3) / totalTime.count();
 		double computeOpsRate = 2.0 * (DIM_FULL ^ 3) / totalCompute.count();
 
 		// Compare.
@@ -322,7 +322,7 @@ int main(int argc, char* argv[]) {
 		}
 
 		fprintf(stdout, "All tests passed. No errors detected.\n");
-		fprintf(stdout, "Ops Rate %f\n", ops_rate);
+		fprintf(stdout, "Ops Rate %f\n", opsRate);
 		fprintf(stdout, "Compute Ops Rate %f\n", computeOpsRate);
 
 		return 0;
