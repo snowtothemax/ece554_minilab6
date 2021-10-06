@@ -314,7 +314,7 @@ int main(int argc, char* argv[]) {
 		fprintf(stdout, "All tests passed. No errors detected.\n");
 		cout << "Elapsed " << totalTime.count() << endl;
 		cout << "GOPS " << 2*(DIM_FULL*DIM_FULL*DIM_FULL) / totalTime.count() / 1000000 << endl;
-		cout << "GOPS " << 2*(DIM_FULL*DIM_FULL*DIM_FULL) / totalTime.count() / 1000000 << endl;
+		cout << "COMPUTE GOPS " << 2*(DIM_FULL*DIM_FULL*DIM_FULL) / computeTime.count() / 1000000 << endl;
 
 		return 0;
 	}
