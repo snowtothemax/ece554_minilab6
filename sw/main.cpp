@@ -289,7 +289,7 @@ int main(int argc, char* argv[]) {
 					startCompute = std::chrono::system_clock::now();
 					afu.write(0x0400, 0);
 					endCompute = std::chrono::system_clock::now();
-					totalCompute += endCompute - startCompute;
+					totalCompute += (std::chrono::duration<long double>)endCompute - (std::chrono::duration<long double>)startCompute);
 					
 					// Do we have to sleep?
 					//	usleep(1000*1000);
@@ -306,10 +306,10 @@ int main(int argc, char* argv[]) {
 		}
 
 		endAll = std::chrono::system_clock::now();
-		totalTime = endAll - startAll;
+		totalTime = (std::chrono::duration<long double>)endAll - (std::chrono::duration<long double>)startAll;
 
-		long double opsRate = 2.0 * (DIM_FULL ^ 3) / totalTime.count();
-		long double computeOpsRate = 2.0 * (DIM_FULL ^ 3) / totalCompute.count();
+		double totalOpsRate = 2.0 * (DIM_FULL ^ 3) / totalTime.count();
+		double computeOpsRate = 2.0 * (DIM_FULL ^ 3) / totalCompute.count();
 
 		// Compare.
 		fprintf(stdout, "Calculation finished. Testing values...\n");
@@ -322,8 +322,8 @@ int main(int argc, char* argv[]) {
 		}
 
 		fprintf(stdout, "All tests passed. No errors detected.\n");
-		fprintf(stdout, "Ops Rate %Lf\n", opsRate);
-		fprintf(stdout, "Compute Ops Rate %Lf\n", computeOpsRate);
+		fprintf(stdout, "Total Ops Rate: %f\n", totalOpsRate);
+		fprintf(stdout, "Compute Ops Rate: %f\n", computeOpsRate);
 
 		return 0;
 	}
