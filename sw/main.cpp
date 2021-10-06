@@ -192,11 +192,11 @@ int main(int argc, char* argv[]) {
 		
 		auto startCompute = std::chrono::system_clock::now(); 
 		auto endCompute = std::chrono::system_clock::now();
-		std::chrono::duration<microseconds> totalCompute = (std::chrono::duration_cast<microseconds)0;
+		std::chrono::duration<std::chrono::microseconds> totalCompute = (std::chrono::duration_cast<std::chrono::microseconds>)0;
 
 		auto startAll = std::chrono::system_clock::now();
 		auto endAll = std::chrono::system_clock::now();
-		std::chrono::duration<microseconds> totalTime = (std::chrono::duration_cast<microseconds)0;
+		std::chrono::duration<std::chrono::microseconds> totalTime = (std::chrono::duration_cast<std::chrono::microseconds>)0;
 
 		fprintf(stdout, "FULL SYSTEM TEST\n---------------\n");
 		fprintf(stdout, "Populating A and B...\n");
