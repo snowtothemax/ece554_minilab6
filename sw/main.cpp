@@ -282,6 +282,7 @@ int main(int argc, char* argv[]) {
 					auto startCompute = std::chrono::high_resolution_clock::now();
 					// "the work"
 					afu.write(0x0400, 0);
+
 					auto endCompute = std::chrono::high_resolution_clock::now();
 					totalCompute += std::chrono::duration_cast<std::chrono::microseconds>(endCompute - startCompute);
 					
