@@ -192,11 +192,11 @@ int main(int argc, char* argv[]) {
 		
 		auto startCompute = std::chrono::system_clock::now(); 
 		auto endCompute = std::chrono::system_clock::now();
-		std::chrono::duration<long double, std::milli> totalCompute = (std::chrono::duration<long double, std::milli>)0;
+		std::chrono::duration<microseconds> totalCompute = (std::chrono::duration_cast<microseconds)0;
 
 		auto startAll = std::chrono::system_clock::now();
 		auto endAll = std::chrono::system_clock::now();
-		std::chrono::duration<long double, std::milli> totalTime = startAll - endAll;
+		std::chrono::duration<microseconds> totalTime = (std::chrono::duration_cast<microseconds)0;
 
 		fprintf(stdout, "FULL SYSTEM TEST\n---------------\n");
 		fprintf(stdout, "Populating A and B...\n");
@@ -309,8 +309,8 @@ int main(int argc, char* argv[]) {
 		endAll = std::chrono::system_clock::now();
 		totalTime = endAll - startAll;
 
-		long double totalOpsRate = 2.0 * (DIM_FULL ^ 3) / totalTime.count();
-		long double computeOpsRate = 2.0 * (DIM_FULL ^ 3) / totalCompute.count();
+		auto totalOpsRate = 2.0 * (DIM_FULL ^ 3) / totalTime.count();
+		auto computeOpsRate = 2.0 * (DIM_FULL ^ 3) / totalCompute.count();
 
 		// Compare.
 		fprintf(stdout, "Calculation finished. Testing values...\n");
@@ -323,8 +323,8 @@ int main(int argc, char* argv[]) {
 		}
 
 		fprintf(stdout, "All tests passed. No errors detected.\n");
-		fprintf(stdout, "Total Ops Rate: %f\n", totalOpsRate);
-		fprintf(stdout, "Compute Ops Rate: %f\n", computeOpsRate);
+		cout << "Total Ops Rate: " << totalOpsRate << endl;
+		cout << "Compute Ops Rate: " << computeOpsRate << endl;
 
 		return 0;
 	}
