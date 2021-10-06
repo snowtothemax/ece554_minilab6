@@ -302,8 +302,8 @@ int main(int argc, char* argv[]) {
 		auto endAll = std::chrono::high_resolution_clock::now();
 		auto totalTime = std::chrono::duration_cast<std::chrono::microseconds>(endAll - startAll);
 
-		auto totalOpsRate = 2.0 * (DIM_FULL ^ 3) / totalTime.count();
-		auto computeOpsRate = 2.0 * (DIM_FULL ^ 3) / totalCompute.count();
+		auto totalOpsRate = 2.0 * (DIM_FULL ^ 3) / ((double) (totalTime.count()/1000000.0));
+		auto computeOpsRate = 2.0 * (DIM_FULL ^ 3) / ((double)(totalCompute.count() / 1000000.0));
 
 		// Compare.
 		fprintf(stdout, "Calculation finished. Testing values...\n");
