@@ -316,8 +316,8 @@ int main(int argc, char* argv[]) {
 		}
 
 		fprintf(stdout, "All tests passed. No errors detected.\n");
-		cout << "Total Ops Rate: " << totalTime << endl;
-		cout << "Compute Ops Rate: " << totalCompute << endl;
+		cout << "Total Ops Rate: " << totalTime.count() << endl;
+		cout << "Compute Ops Rate: " << totalCompute.count() << endl;
 
 		return 0;
 	}
