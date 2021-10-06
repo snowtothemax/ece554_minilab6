@@ -55,7 +55,7 @@ using namespace std;
 typedef int8_t AB_TYPE;
 typedef int16_t C_TYPE;
 #define DIM 8
-#define DIM_FULL 16
+#define DIM_FULL 8
 #define MAX_VAL _UI16_MAX
 #define DEBUG true
 
@@ -189,7 +189,7 @@ int main(int argc, char* argv[]) {
 		gettimeofday(&tv, nullptr);
 		srand(tv.tv_usec);
 
-		std::chrono::nanoseconds totalCompute;
+		std::chrono::milliseconds totalCompute;
 
 		fprintf(stdout, "FULL SYSTEM TEST\n---------------\n");
 		fprintf(stdout, "Populating A and B...\n");
@@ -284,7 +284,7 @@ int main(int argc, char* argv[]) {
 					afu.write(0x0400, 0);
 
 					auto endCompute = std::chrono::high_resolution_clock::now();
-					totalCompute += std::chrono::duration_cast<std::chrono::nanoseconds>(endCompute - startCompute);
+					totalCompute += std::chrono::duration_cast<std::chrono::milliseconds>(endCompute - startCompute);
 					
 					// Do we have to sleep?
 					//	usleep(1000*1000);
@@ -301,7 +301,7 @@ int main(int argc, char* argv[]) {
 		}
 
 		auto endAll = std::chrono::high_resolution_clock::now();
-		auto totalTime = std::chrono::duration_cast<std::chrono::nanoseconds>(endAll - startAll);
+		auto totalTime = std::chrono::duration_cast<std::chrono::milliseconds>(endAll - startAll);
 
 		auto totalOpsRate = 2.0 * (DIM_FULL ^ 3) / ((long double) (totalTime.count()/1000000.0));
 		auto computeOpsRate = 2.0 * (DIM_FULL ^ 3) / ((long double) (totalCompute.count() / 1000000.0));
