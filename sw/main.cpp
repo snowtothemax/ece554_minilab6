@@ -290,7 +290,7 @@ int main(int argc, char* argv[]) {
 					// "the work"
 					afu.write(0x0400, 0);
 					endCompute = std::chrono::high_resolution_clock::now();
-					totalCompute += endCompute - startCompute);
+					totalCompute += endCompute - startCompute;
 					
 					// Do we have to sleep?
 					//	usleep(1000*1000);
