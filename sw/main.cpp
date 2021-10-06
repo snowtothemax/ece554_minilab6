@@ -282,8 +282,6 @@ int main(int argc, char* argv[]) {
 					auto startCompute = std::chrono::high_resolution_clock::now();
 					// "the work"
 					afu.write(0x0400, 0);
-					auto endCompute = std::chrono::high_resolution_clock::now();
-					totalCompute += std::chrono::duration_cast<std::chrono::microseconds>(endCompute - startCompute);
 					
 					// Do we have to sleep?
 					//	usleep(1000*1000);
@@ -295,6 +293,8 @@ int main(int argc, char* argv[]) {
 					{
 						unpack_from_C(c_r, output[c_r + i] + j, afu);
 					}	
+					auto endCompute = std::chrono::high_resolution_clock::now();
+					totalCompute += std::chrono::duration_cast<std::chrono::microseconds>(endCompute - startCompute);
 				}
 			}
 		}
