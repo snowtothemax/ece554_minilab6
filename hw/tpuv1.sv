@@ -109,7 +109,7 @@ module tpuv1
 	//If en then load zeros otherwise do the math stuff (our math is right) 
 	generate
 		for(rowcolB=0;rowcolB<DIM;++rowcolB) begin
-			assign B[rowcolB] = en ? dataIn[((rowcolB+1)*BITS_AB)-1:(rowcolB*BITS_AB)] : '0;
+			assign B[rowcolB] = en ? '0 : dataIn[((rowcolB+1)*BITS_AB)-1:(rowcolB*BITS_AB)] ;
 		end
 	endgenerate
 	
