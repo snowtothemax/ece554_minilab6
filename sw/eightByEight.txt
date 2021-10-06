@@ -1,0 +1,190 @@
+FULL SYSTEM TEST
+---------------
+Populating A and B...
+Calculating reference values of C...
+Testing write of C registers...
+CWRITE: low word, high word, address 4cd850cb3bbd2849 | d62a7e0e386e8573 @300 @308
+CWRITE: low word, high word, address e663fb8f4d652725 | dceb1533fa2a0b83 @310 @318
+CWRITE: low word, high word, address f458ca88edc2df7a | 1aad56e7d37ed121 @320 @328
+CWRITE: low word, high word, address 37aff80ff421ea1d | 164905d61c8c5d49 @330 @338
+CWRITE: low word, high word, address e5a3e997191ad69e | d9681d1b02117995 @340 @348
+CWRITE: low word, high word, address c5ada5f8ec65dea3 | ae42cf0bc088c784 @350 @358
+CWRITE: low word, high word, address 65ad5eb915fa3c0b | e77e72331b4f923b @360 @368
+CWRITE: low word, high word, address ed45c39b8c44fe45 | f8a3111d000b6e5f @370 @378
+low word, high word, address 4cd850cb3bbd2849 | d62a7e0e386e8573 @300 @308
+low word, high word, address e663fb8f4d652725 | dceb1533fa2a0b83 @310 @318
+low word, high word, address f458ca88edc2df7a | 1aad56e7d37ed121 @320 @328
+low word, high word, address 37aff80ff421ea1d | 164905d61c8c5d49 @330 @338
+low word, high word, address e5a3e997191ad69e | d9681d1b02117995 @340 @348
+low word, high word, address c5ada5f8ec65dea3 | ae42cf0bc088c784 @350 @358
+low word, high word, address 65ad5eb915fa3c0b | e77e72331b4f923b @360 @368
+low word, high word, address ed45c39b8c44fe45 | f8a3111d000b6e5f @370 @378
+row: 0 col: 0 || actual: 2849 expeected: 2849
+row: 0 col: 1 || actual: 3bbd expeected: 3bbd
+row: 0 col: 2 || actual: 50cb expeected: 50cb
+row: 0 col: 3 || actual: 4cd8 expeected: 4cd8
+row: 0 col: 4 || actual: 8573 expeected: 8573
+row: 0 col: 5 || actual: 386e expeected: 386e
+row: 0 col: 6 || actual: 7e0e expeected: 7e0e
+row: 0 col: 7 || actual: d62a expeected: d62a
+row: 1 col: 0 || actual: 2725 expeected: 2725
+row: 1 col: 1 || actual: 4d65 expeected: 4d65
+row: 1 col: 2 || actual: fb8f expeected: fb8f
+row: 1 col: 3 || actual: e663 expeected: e663
+row: 1 col: 4 || actual: b83 expeected: b83
+row: 1 col: 5 || actual: fa2a expeected: fa2a
+row: 1 col: 6 || actual: 1533 expeected: 1533
+row: 1 col: 7 || actual: dceb expeected: dceb
+row: 2 col: 0 || actual: df7a expeected: df7a
+row: 2 col: 1 || actual: edc2 expeected: edc2
+row: 2 col: 2 || actual: ca88 expeected: ca88
+row: 2 col: 3 || actual: f458 expeected: f458
+row: 2 col: 4 || actual: d121 expeected: d121
+row: 2 col: 5 || actual: d37e expeected: d37e
+row: 2 col: 6 || actual: 56e7 expeected: 56e7
+row: 2 col: 7 || actual: 1aad expeected: 1aad
+row: 3 col: 0 || actual: ea1d expeected: ea1d
+row: 3 col: 1 || actual: f421 expeected: f421
+row: 3 col: 2 || actual: f80f expeected: f80f
+row: 3 col: 3 || actual: 37af expeected: 37af
+row: 3 col: 4 || actual: 5d49 expeected: 5d49
+row: 3 col: 5 || actual: 1c8c expeected: 1c8c
+row: 3 col: 6 || actual: 5d6 expeected: 5d6
+row: 3 col: 7 || actual: 1649 expeected: 1649
+row: 4 col: 0 || actual: d69e expeected: d69e
+row: 4 col: 1 || actual: 191a expeected: 191a
+row: 4 col: 2 || actual: e997 expeected: e997
+row: 4 col: 3 || actual: e5a3 expeected: e5a3
+row: 4 col: 4 || actual: 7995 expeected: 7995
+row: 4 col: 5 || actual: 211 expeected: 211
+row: 4 col: 6 || actual: 1d1b expeected: 1d1b
+row: 4 col: 7 || actual: d968 expeected: d968
+row: 5 col: 0 || actual: dea3 expeected: dea3
+row: 5 col: 1 || actual: ec65 expeected: ec65
+row: 5 col: 2 || actual: a5f8 expeected: a5f8
+row: 5 col: 3 || actual: c5ad expeected: c5ad
+row: 5 col: 4 || actual: c784 expeected: c784
+row: 5 col: 5 || actual: c088 expeected: c088
+row: 5 col: 6 || actual: cf0b expeected: cf0b
+row: 5 col: 7 || actual: ae42 expeected: ae42
+row: 6 col: 0 || actual: 3c0b expeected: 3c0b
+row: 6 col: 1 || actual: 15fa expeected: 15fa
+row: 6 col: 2 || actual: 5eb9 expeected: 5eb9
+row: 6 col: 3 || actual: 65ad expeected: 65ad
+row: 6 col: 4 || actual: 923b expeected: 923b
+row: 6 col: 5 || actual: 1b4f expeected: 1b4f
+row: 6 col: 6 || actual: 7233 expeected: 7233
+row: 6 col: 7 || actual: e77e expeected: e77e
+row: 7 col: 0 || actual: fe45 expeected: fe45
+row: 7 col: 1 || actual: 8c44 expeected: 8c44
+row: 7 col: 2 || actual: c39b expeected: c39b
+row: 7 col: 3 || actual: ed45 expeected: ed45
+row: 7 col: 4 || actual: 6e5f expeected: 6e5f
+row: 7 col: 5 || actual: b expeected: b
+row: 7 col: 6 || actual: 111d expeected: 111d
+row: 7 col: 7 || actual: f8a3 expeected: f8a3
+Loading C into AFU...
+CWRITE: low word, high word, address 0 | 0 @300 @308
+CWRITE: low word, high word, address 0 | 0 @310 @318
+CWRITE: low word, high word, address 0 | 0 @320 @328
+CWRITE: low word, high word, address 0 | 0 @330 @338
+CWRITE: low word, high word, address 0 | 0 @340 @348
+CWRITE: low word, high word, address 0 | 0 @350 @358
+CWRITE: low word, high word, address 0 | 0 @360 @368
+CWRITE: low word, high word, address 0 | 0 @370 @378
+Loading A into AFU...
+data word val, addr: b197bbb0bf8b6d7c | 100
+data word val, addr: cbb03a74a6660571 | 108
+data word val, addr: ea478f1e052a75ae | 110
+data word val, addr: d76f46fac147330f | 118
+data word val, addr: 1ca1d61d518157cb | 120
+data word val, addr: 708e4f63352925b2 | 128
+data word val, addr: d2aea48196a45073 | 130
+data word val, addr: f455148c5e5fda90 | 138
+Loading B into AFU...
+data word val, addr: b40634e94b70493b | 200
+data word val, addr: ac730aa04cd6facd | 208
+data word val, addr: b841b640dab4b93a | 210
+data word val, addr: 9d122bfbbbd9f4ef | 218
+data word val, addr: 30c1e3e0a0db75cc | 220
+data word val, addr: d9a6527b24e6f9cf | 228
+data word val, addr: 61c0236d4121f5c7 | 230
+data word val, addr: c9849aae4211baf7 | 238
+Performing Calculation...
+Reading Output from C...
+low word, high word, address 4cd850cb3bbd2849 | d62a7e0e386e8573 @300 @308
+low word, high word, address e663fb8f4d652725 | dceb1533fa2a0b83 @310 @318
+low word, high word, address f458ca88edc2df7a | 1aad56e7d37ed121 @320 @328
+low word, high word, address 37aff80ff421ea1d | 164905d61c8c5d49 @330 @338
+low word, high word, address e5a3e997191ad69e | d9681d1b02117995 @340 @348
+low word, high word, address c5ada5f8ec65dea3 | ae42cf0bc088c784 @350 @358
+low word, high word, address 65ad5eb915fa3c0b | e77e72331b4f923b @360 @368
+low word, high word, address ed45c39b8c44fe45 | f8a3111d000b6e5f @370 @378
+Calculation finished. Testing values...
+row: 0 col: 0 || actual: 2849 expeected: 2849
+row: 0 col: 1 || actual: 3bbd expeected: 3bbd
+row: 0 col: 2 || actual: 50cb expeected: 50cb
+row: 0 col: 3 || actual: 4cd8 expeected: 4cd8
+row: 0 col: 4 || actual: 8573 expeected: 8573
+row: 0 col: 5 || actual: 386e expeected: 386e
+row: 0 col: 6 || actual: 7e0e expeected: 7e0e
+row: 0 col: 7 || actual: d62a expeected: d62a
+row: 1 col: 0 || actual: 2725 expeected: 2725
+row: 1 col: 1 || actual: 4d65 expeected: 4d65
+row: 1 col: 2 || actual: fb8f expeected: fb8f
+row: 1 col: 3 || actual: e663 expeected: e663
+row: 1 col: 4 || actual: b83 expeected: b83
+row: 1 col: 5 || actual: fa2a expeected: fa2a
+row: 1 col: 6 || actual: 1533 expeected: 1533
+row: 1 col: 7 || actual: dceb expeected: dceb
+row: 2 col: 0 || actual: df7a expeected: df7a
+row: 2 col: 1 || actual: edc2 expeected: edc2
+row: 2 col: 2 || actual: ca88 expeected: ca88
+row: 2 col: 3 || actual: f458 expeected: f458
+row: 2 col: 4 || actual: d121 expeected: d121
+row: 2 col: 5 || actual: d37e expeected: d37e
+row: 2 col: 6 || actual: 56e7 expeected: 56e7
+row: 2 col: 7 || actual: 1aad expeected: 1aad
+row: 3 col: 0 || actual: ea1d expeected: ea1d
+row: 3 col: 1 || actual: f421 expeected: f421
+row: 3 col: 2 || actual: f80f expeected: f80f
+row: 3 col: 3 || actual: 37af expeected: 37af
+row: 3 col: 4 || actual: 5d49 expeected: 5d49
+row: 3 col: 5 || actual: 1c8c expeected: 1c8c
+row: 3 col: 6 || actual: 5d6 expeected: 5d6
+row: 3 col: 7 || actual: 1649 expeected: 1649
+row: 4 col: 0 || actual: d69e expeected: d69e
+row: 4 col: 1 || actual: 191a expeected: 191a
+row: 4 col: 2 || actual: e997 expeected: e997
+row: 4 col: 3 || actual: e5a3 expeected: e5a3
+row: 4 col: 4 || actual: 7995 expeected: 7995
+row: 4 col: 5 || actual: 211 expeected: 211
+row: 4 col: 6 || actual: 1d1b expeected: 1d1b
+row: 4 col: 7 || actual: d968 expeected: d968
+row: 5 col: 0 || actual: dea3 expeected: dea3
+row: 5 col: 1 || actual: ec65 expeected: ec65
+row: 5 col: 2 || actual: a5f8 expeected: a5f8
+row: 5 col: 3 || actual: c5ad expeected: c5ad
+row: 5 col: 4 || actual: c784 expeected: c784
+row: 5 col: 5 || actual: c088 expeected: c088
+row: 5 col: 6 || actual: cf0b expeected: cf0b
+row: 5 col: 7 || actual: ae42 expeected: ae42
+row: 6 col: 0 || actual: 3c0b expeected: 3c0b
+row: 6 col: 1 || actual: 15fa expeected: 15fa
+row: 6 col: 2 || actual: 5eb9 expeected: 5eb9
+row: 6 col: 3 || actual: 65ad expeected: 65ad
+row: 6 col: 4 || actual: 923b expeected: 923b
+row: 6 col: 5 || actual: 1b4f expeected: 1b4f
+row: 6 col: 6 || actual: 7233 expeected: 7233
+row: 6 col: 7 || actual: e77e expeected: e77e
+row: 7 col: 0 || actual: fe45 expeected: fe45
+row: 7 col: 1 || actual: 8c44 expeected: 8c44
+row: 7 col: 2 || actual: c39b expeected: c39b
+row: 7 col: 3 || actual: ed45 expeected: ed45
+row: 7 col: 4 || actual: 6e5f expeected: 6e5f
+row: 7 col: 5 || actual: b expeected: b
+row: 7 col: 6 || actual: 111d expeected: 111d
+row: 7 col: 7 || actual: f8a3 expeected: f8a3
+All tests passed. No errors detected.
+Elapsed 0.021381
+GOPS 0.047893
