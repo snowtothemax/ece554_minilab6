@@ -279,7 +279,7 @@ int main(int argc, char* argv[]) {
 					// Calculate
 					fprintf(stdout, "Performing Calculation...\n");
 
-					auto startCompute = std::chrono::system_clock::now();
+					auto startCompute = std::chrono::high_resolution_clock::now();
 					// "the work"
 					afu.write(0x0400, 0);
 					auto endCompute = std::chrono::high_resolution_clock::now();
@@ -299,7 +299,7 @@ int main(int argc, char* argv[]) {
 			}
 		}
 
-		auto endAll = std::chrono::system_clock::now();
+		auto endAll = std::chrono::high_resolution_clock::now();
 		auto totalTime = std::chrono::duration_cast<std::chrono::microseconds>(endAll - startAll);
 
 		auto totalOpsRate = 2.0 * (DIM_FULL ^ 3) / totalTime.count();
